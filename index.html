@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bot Control Panel</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Bot Control Panel</h1>
+        <label class="switch">
+            <input type="checkbox" id="botSwitch">
+            <span class="slider"></span>
+        </label>
+        <p id="status">Bot is OFF</p>
+
+        <script>
+            const botSwitch = document.getElementById('botSwitch');
+            const statusText = document.getElementById('status');
+
+            botSwitch.addEventListener('change', async function () {
+                if (botSwitch.checked) {
+                    statusText.textContent = "Bot is ON";
+                    await fetch('/start-bot'); // Call backend to start bot
+                } else {
+                    statusText.textContent = "Bot is OFF";
+                    await fetch('/stop-bot');  // Call backend to stop bot
+                }
+            });
+        </script>
+    </div>
+</body>
+</html>
